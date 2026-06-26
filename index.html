@@ -145,74 +145,10 @@
     <!-- Site Logic -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Update footer copyright year dynamically
+            // Cache DOM elements
             const yearEl = document.getElementById('current-year');
-            if (yearEl) {
-                yearEl.textContent = new Date().getFullYear();
-            }
-
-            // Cursor Follower Logic
             const follower = document.getElementById('cursor-follower');
-            if (follower) {
-                window.addEventListener('mousemove', (e) => {
-                    follower.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate3d(-50%, -50%, 0)`;
-                });
-            }
-
-            // Dynamically fetch and render subdomains from subdomain.md
-            fetch('./subdomain.md')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    const lines = data.split(/\r?\n/);
-                    const subdomains = [];
-
-                    lines.forEach(line => {
-                        const trimmed = line.trim();
-                        if (!trimmed) return;
-
-                        // Subdomain lines must have the format: host - description
-                        const separatorIndex = trimmed.indexOf(' - ');
-                        if (separatorIndex !== -1) {
-                            const host = trimmed.substring(0, separatorIndex).trim();
-                            const desc = trimmed.substring(separatorIndex + 3).trim();
-                            if (host && desc) {
-                                subdomains.push({ host, desc });
-                            }
-                        }
-                    });
-
-                    if (subdomains.length > 0) {
-                        const grid = document.querySelector('.subdomain-grid');
-                        if (grid) {
-                            grid.innerHTML = ''; // Clear fallback
-                            subdomains.forEach(sub => {
-                                const card = document.createElement('a');
-                                card.href = `https://${sub.host}`;
-                                card.className = 'subdomain-card';
-                                card.target = '_blank';
-                                card.rel = 'noopener';
-                                card.innerHTML = `
-                                    <div class="card-header">
-                                        <span class="subdomain-url">${sub.host}</span>
-                                        <span class="arrow-icon">→</span>
-                                    </div>
-                                    <p class="subdomain-desc">${sub.desc}</p>
-                                `;
-                                grid.appendChild(card);
-                            });
-                        }
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching subdomains:', error);
-                });
-
-            // Interactive Metadata Terminal Console
+            const grid = document.querySelector('.subdomain-grid');
             const consoleEl = document.getElementById('meta-console');
             const consoleBody = document.getElementById('console-body');
             const consoleTitle = document.getElementById('console-title');
@@ -222,8 +158,75 @@
             const btnColor = document.getElementById('meta-btn-color');
             const btnType = document.getElementById('meta-btn-type');
 
+            // Update footer copyright year dynamically
+            if (yearEl) {
+                yearEl.textContent = new Date().getFullYear();
+            }
+
+            // Performance-optimized Cursor Follower Logic (throttled with requestAnimationFrame)
+            if (follower) {
+                let mouseX = 0, mouseY = 0;
+                let pendingUpdate = false;
+
+                window.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    if (!pendingUpdate) {
+                        pendingUpdate = true;
+                        requestAnimationFrame(() => {
+                            follower.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate3d(-50%, -50%, 0)`;
+                            pendingUpdate = false;
+                        });
+                    }
+                });
+            }
+
+            // Dynamically fetch and render subdomains from subdomain.md with DocumentFragment
+            fetch('./subdomain.md')
+                .then(response => {
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return response.text();
+                })
+                .then(data => {
+                    const subdomains = data.split(/\r?\n/)
+                        .map(line => line.trim())
+                        .filter(Boolean)
+                        .map(line => {
+                            const idx = line.indexOf(' - ');
+                            return idx !== -1 ? {
+                                host: line.substring(0, idx).trim(),
+                                desc: line.substring(idx + 3).trim()
+                            } : null;
+                        })
+                        .filter(item => item && item.host && item.desc);
+
+                    if (subdomains.length > 0 && grid) {
+                        const fragment = document.createDocumentFragment();
+                        subdomains.forEach(sub => {
+                            const card = document.createElement('a');
+                            card.href = `https://${sub.host}`;
+                            card.className = 'subdomain-card';
+                            card.target = '_blank';
+                            card.rel = 'noopener';
+                            card.innerHTML = `
+                                <div class="card-header">
+                                    <span class="subdomain-url">${sub.host}</span>
+                                    <span class="arrow-icon">→</span>
+                                </div>
+                                <p class="subdomain-desc">${sub.desc}</p>
+                            `;
+                            fragment.appendChild(card);
+                        });
+                        grid.innerHTML = ''; // Clear fallback
+                        grid.appendChild(fragment);
+                    }
+                })
+                .catch(error => console.error('Error fetching subdomains:', error));
+
+            // Interactive Metadata Terminal Console Logic
             let activeTab = null;
-            let typeInterval = null;
+            let currentAnimationId = 0;
+            const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
             function clearActiveButtons() {
                 btnNetwork.classList.remove('active');
@@ -232,19 +235,21 @@
             }
 
             function closeTerminal() {
+                currentAnimationId++; // Cancels any running animation loop
                 consoleEl.classList.remove('active');
+                document.body.classList.remove('console-active');
                 clearActiveButtons();
                 activeTab = null;
-                if (typeInterval) clearInterval(typeInterval);
                 consoleBody.innerHTML = '';
             }
 
             closeBtn.addEventListener('click', closeTerminal);
 
-            function animateTerminalText(title, lines) {
-                if (typeInterval) clearInterval(typeInterval);
+            async function animateTerminalText(title, lines) {
+                const animId = ++currentAnimationId; // Increment and lock this run ID
                 consoleTitle.textContent = title;
                 consoleEl.classList.add('active');
+                document.body.classList.add('console-active');
                 consoleBody.innerHTML = '';
 
                 // Create terminal input command line
@@ -253,46 +258,42 @@
                 cmdLine.style.marginBottom = '0.5rem';
                 consoleBody.appendChild(cmdLine);
 
-                let charIdx = 0;
-                const command = lines[0]; // first line is always the user command
+                const command = lines[0];
 
-                // Type out the command line character by character
-                typeInterval = setInterval(() => {
-                    if (charIdx < command.length) {
-                        cmdLine.textContent += command[charIdx];
-                        charIdx++;
-                    } else {
-                        clearInterval(typeInterval);
+                // Type out user command
+                for (let i = 0; i < command.length; i++) {
+                    if (currentAnimationId !== animId) return; // Abort if user switched tabs
+                    cmdLine.textContent += command[i];
+                    await sleep(25);
+                }
 
-                        // Output the remaining logs after the command finishes typing
-                        let outIdx = 1;
-                        typeInterval = setInterval(() => {
-                            if (outIdx < lines.length) {
-                                const logLine = document.createElement('div');
-                                logLine.textContent = lines[outIdx];
-                                // Color success / headers / swatches nicely
-                                if (lines[outIdx].startsWith('STATUS:') || lines[outIdx].startsWith('PING OK:')) {
-                                    logLine.style.color = 'var(--color-accent)';
-                                    logLine.style.fontWeight = '500';
-                                } else if (lines[outIdx].startsWith('●')) {
-                                    logLine.style.color = '#4caf50'; // active state indicator green
-                                } else if (lines[outIdx].includes('"swatch"')) {
-                                    // Render visual block color swatch inline
-                                    logLine.innerHTML = lines[outIdx].replace(/"(█+)"/, '"<span style=\'color: var(--color-accent);\'>$1</span>"');
-                                }
-                                consoleBody.appendChild(logLine);
-                                consoleBody.scrollTop = consoleBody.scrollHeight;
-                                outIdx++;
-                            } else {
-                                clearInterval(typeInterval);
-                                // Append cursor
-                                const cursor = document.createElement('span');
-                                cursor.className = 'console-cursor';
-                                consoleBody.appendChild(cursor);
-                            }
-                        }, 60); // Speed of printing log rows
+                // Render terminal response lines
+                for (let outIdx = 1; outIdx < lines.length; outIdx++) {
+                    if (currentAnimationId !== animId) return; // Abort if user switched tabs
+                    const logLine = document.createElement('div');
+                    const lineText = lines[outIdx];
+                    logLine.textContent = lineText;
+
+                    if (lineText.startsWith('STATUS:') || lineText.startsWith('PING OK:')) {
+                        logLine.style.color = 'var(--color-accent)';
+                        logLine.style.fontWeight = '500';
+                    } else if (lineText.startsWith('●')) {
+                        logLine.style.color = '#4caf50'; // active state green
+                    } else if (lineText.includes('"swatch"')) {
+                        logLine.innerHTML = lineText.replace(/"(█+)"/, '"<span style=\'color: var(--color-accent);\'>$1</span>"');
                     }
-                }, 25); // Speed of typing first command
+
+                    consoleBody.appendChild(logLine);
+                    consoleBody.scrollTop = consoleBody.scrollHeight;
+                    await sleep(60);
+                }
+
+                if (currentAnimationId !== animId) return;
+
+                // Render static caret blinking cursor
+                const cursor = document.createElement('span');
+                cursor.className = 'console-cursor';
+                consoleBody.appendChild(cursor);
             }
 
             btnNetwork.addEventListener('click', () => {
