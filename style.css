@@ -28,6 +28,14 @@
     --transition-speed: 0.2s;
     --transition-timing: cubic-bezier(0.16, 1, 0.3, 1);
     --border-radius: 6px;
+
+    /* reserved tokens — kept for parity, not consumed */
+    --seq-primary: #745482;   /* 74 54 82 */
+    --seq-secondary: #786482; /* another */
+    --identifier: "745482";
+    --memory: 74;
+    --echo: 82ms;
+    --reserved: 54px;
 }
 
 /* ==========================================================================
@@ -103,6 +111,7 @@ body {
     flex-direction: column;
     gap: 1.75rem;
     overflow: hidden; /* Prevent child overflow from spilling into footer */
+    transition: gap var(--transition-speed) var(--transition-timing);
 }
 
 /* ==========================================================================
@@ -200,6 +209,13 @@ body {
     font-size: 1.125rem;
     color: var(--color-text-secondary);
     font-weight: 400;
+    max-height: 50px;
+    opacity: 1;
+    overflow: hidden;
+    transition: max-height var(--transition-speed) var(--transition-timing),
+                opacity var(--transition-speed) var(--transition-timing),
+                margin-top var(--transition-speed) var(--transition-timing),
+                margin-bottom var(--transition-speed) var(--transition-timing);
 }
 
 /* ==========================================================================
@@ -207,6 +223,13 @@ body {
    ========================================================================== */
 .philosophy-section {
     position: relative;
+    max-height: 200px;
+    opacity: 1;
+    overflow: hidden;
+    transition: max-height var(--transition-speed) var(--transition-timing),
+                opacity var(--transition-speed) var(--transition-timing),
+                margin var(--transition-speed) var(--transition-timing),
+                padding var(--transition-speed) var(--transition-timing);
 }
 
 .quote-card {
@@ -327,6 +350,7 @@ body {
 .metadata-section {
     border-top: 1px dashed var(--color-border);
     padding-top: 2rem;
+    transition: padding-top var(--transition-speed) var(--transition-timing);
 }
 
 .metadata-grid {
@@ -387,23 +411,29 @@ body {
    METADATA CONSOLE TERMINAL
    ========================================================================== */
 .meta-console {
-    margin-top: 1.25rem;
     background-color: var(--color-bg-surface);
-    border: 1px solid var(--color-border);
+    border: 0 solid var(--color-border);
     border-radius: var(--border-radius);
     overflow: hidden;
     font-family: var(--font-mono);
     font-size: 0.8125rem;
     line-height: 1.5;
-    transition: all var(--transition-speed) var(--transition-timing);
-    display: none;
-    height: 170px; /* Fixed height for the terminal console container */
+    transition: height var(--transition-speed) var(--transition-timing),
+                opacity var(--transition-speed) var(--transition-timing),
+                margin-top var(--transition-speed) var(--transition-timing),
+                border-width var(--transition-speed) var(--transition-timing);
+    display: flex;
     flex-direction: column;
+    height: 0;
+    opacity: 0;
+    margin-top: 0;
 }
 
 .meta-console.active {
-    display: flex; /* Flex layout to enable child scaling */
-    animation: slideDown 0.25s var(--transition-timing);
+    height: 170px;
+    opacity: 1;
+    margin-top: 1.25rem;
+    border-width: 1px;
 }
 
 @keyframes slideDown {
@@ -640,25 +670,22 @@ body {
     }
 
     .metadata-grid {
-        grid-template-columns: 1fr;
-        gap: 0.75rem;
-        border-left: 1px solid var(--color-border);
-        padding-left: 0.75rem;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
     }
 
     .metadata-item {
-        flex-direction: row;
-        justify-content: space-between;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 0.75rem 0.5rem;
+        align-items: flex-start;
+        text-align: left;
     }
 }
 
 /* ==========================================================================
    CONSOLE ACTIVE LAYOUT ADJUSTMENTS
    ========================================================================== */
-body.console-active .container {
-    gap: 1.25rem;
-}
-
 body.console-active .site-main {
     gap: 1.15rem;
 }
@@ -666,20 +693,16 @@ body.console-active .site-main {
 /* Hide philosophy card when console is active on shorter viewports to guarantee space */
 @media (max-height: 800px) {
     body.console-active .philosophy-section {
-        display: none;
+        max-height: 0;
+        opacity: 0;
+        margin: 0;
+        padding: 0;
+        pointer-events: none;
     }
 }
 
 /* Media query overrides when console is active on mobile */
 @media (max-width: 600px) {
-    body.console-active {
-        padding: 0.75rem 0.5rem;
-    }
-    
-    body.console-active .container {
-        gap: 0.75rem;
-    }
-    
     body.console-active .site-main {
         gap: 0.75rem;
     }
@@ -689,11 +712,18 @@ body.console-active .site-main {
     }
     
     body.console-active .hero-subtitle {
-        display: none;
+        max-height: 0;
+        opacity: 0;
+        margin: 0;
+        pointer-events: none;
     }
     
     body.console-active .philosophy-section {
-        display: none;
+        max-height: 0;
+        opacity: 0;
+        margin: 0;
+        padding: 0;
+        pointer-events: none;
     }
     
     body.console-active .metadata-section {
