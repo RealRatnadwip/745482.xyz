@@ -61,10 +61,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 .filter(Boolean)
                 .map(line => {
                     const idx = line.indexOf(' - ');
-                    return idx !== -1 ? {
-                        host: line.substring(0, idx).trim(),
-                        desc: line.substring(idx + 3).trim()
-                    } : null;
+                    if (idx === -1) return null;
+                    const host = line.substring(0, idx).trim();
+
+                    // Only match actual subdomains to exclude templates or other lines
+                    const hostRegex = /^[a-zA-Z0-9.-]+\.745482\.xyz$/;
+                    if (!hostRegex.test(host)) return null;
+
+                    let desc = line.substring(idx + 3).trim();
+
+                    let status = 'active'; // Default
+                    const lowerDesc = desc.toLowerCase();
+                    if (lowerDesc.includes('*active')) {
+                        status = 'active';
+                        desc = desc.replace(/\*[Aa]ctive/g, '').trim();
+                    } else if (lowerDesc.includes('*inactive')) {
+                        status = 'inactive';
+                        desc = desc.replace(/\*[Ii]nactive/g, '').trim();
+                    } else if (/\*(maintanance|maintenance|maintance)/i.test(lowerDesc)) {
+                        status = 'maintenance';
+                        desc = desc.replace(/\*(maintanance|maintenance|maintance)/gi, '').trim();
+                    }
+                    return { host, desc, status };
                 })
                 .filter(item => item && item.host && item.desc);
 
@@ -72,14 +90,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 const fragment = document.createDocumentFragment();
                 subdomains.forEach(sub => {
                     const card = document.createElement('a');
-                    card.href = `https://${sub.host}`;
                     card.className = 'subdomain-card';
-                    card.target = '_blank';
-                    card.rel = 'noopener';
+                    if (sub.status === 'active') {
+                        card.href = `https://${sub.host}`;
+                        card.target = '_blank';
+                        card.rel = 'noopener';
+                    } else {
+                        card.classList.add(sub.status);
+                        card.style.cursor = 'default';
+                    }
                     card.innerHTML = `
                         <div class="card-header">
-                            <span class="subdomain-url">${sub.host}</span>
-                            <span class="arrow-icon">→</span>
+                            <div class="url-group">
+                                <span class="subdomain-url">${sub.host}</span>
+                                <span class="status-badge status-${sub.status}">${sub.status}</span>
+                            </div>
+                            ${sub.status === 'active' ? '<span class="arrow-icon">→</span>' : ''}
                         </div>
                         <p class="subdomain-desc">${sub.desc}</p>
                     `;
@@ -178,8 +204,8 @@ document.addEventListener('DOMContentLoaded', () => {
             'traceroute to 745482.xyz (185.199.108.153), 30 hops max',
             ' 1  client.local (192.168.1.1)  0.72 ms',
             ' 2  gateway.isp.net (10.0.0.1)  2.15 ms',
-            ' 3  backbone.realratnadwip.net (172.16.42.1)  7.45 ms',
-            ' 4  node-cdn.745482.xyz (185.199.108.153)  11.89 ms',
+            ' 3  745482.ratnadwip.com (172.16.42.1)  7.45 ms',
+            ' 4  745482.xyz (185.199.108.153)  11.89 ms',
             ' ',
             'STATUS: Connection secure. Route active via TLS 1.3.',
             'PING OK: RTT min/avg/max = 11.2/11.8/12.4 ms'
@@ -233,4 +259,39 @@ document.addEventListener('DOMContentLoaded', () => {
         ];
         animateTerminalText('system_diagnostics.sh', lines);
     });
+
+    // Dynamically fetch last commit time from GitHub API
+    const lastUpdatedEl = document.getElementById('last-updated-time');
+    if (lastUpdatedEl) {
+        fetch('https://api.github.com/repos/RealRatnadwip/745482.xyz/commits?per_page=1')
+            .then(response => {
+                if (!response.ok) throw new Error('Network response not ok');
+                return response.json();
+            })
+            .then(data => {
+                if (data && data.length > 0) {
+                    const commitDateStr = data[0].commit.committer.date;
+                    const commitDate = new Date(commitDateStr);
+                    // Format commit date as a friendly string in UTC timezone
+                    const options = {
+                        year: 'numeric',
+                        month: 'short',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        timeZone: 'UTC',
+                        timeZoneName: 'short'
+                    };
+                    const formattedDate = commitDate.toLocaleDateString('en-US', options);
+                    lastUpdatedEl.textContent = `Last Updated: ${formattedDate}`;
+                } else {
+                    lastUpdatedEl.textContent = '';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching last commit:', error);
+                lastUpdatedEl.textContent = ''; // Hide or show fallback on error
+            });
+    }
 });

@@ -264,6 +264,13 @@ body {
     gap: 0.75rem;
 }
 
+.section-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-shrink: 0;
+}
+
 .section-title {
     font-size: 0.875rem;
     font-family: var(--font-mono);
@@ -271,6 +278,12 @@ body {
     letter-spacing: 0.05em;
     color: var(--color-text-muted);
     flex-shrink: 0;
+}
+
+.last-updated {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
 }
 
 .subdomain-grid {
@@ -342,6 +355,58 @@ body {
 .subdomain-desc {
     font-size: 0.875rem;
     color: var(--color-text-secondary);
+}
+
+.url-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.status-badge {
+    font-size: 0.65rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.status-badge.status-active {
+    background-color: rgba(76, 175, 80, 0.15);
+    color: #4caf50;
+    border: 1px solid rgba(76, 175, 80, 0.25);
+}
+
+.status-badge.status-inactive {
+    background-color: rgba(244, 67, 54, 0.15);
+    color: #f44336;
+    border: 1px solid rgba(244, 67, 54, 0.25);
+}
+
+.subdomain-card.inactive {
+    opacity: 0.5;
+}
+
+.subdomain-card.inactive:hover {
+    border-color: var(--color-border);
+    background-color: var(--color-bg-surface);
+}
+
+.status-badge.status-maintenance {
+    background-color: rgba(255, 152, 0, 0.15);
+    color: #ff9800;
+    border: 1px solid rgba(255, 152, 0, 0.25);
+}
+
+.subdomain-card.maintenance {
+    opacity: 0.7;
+}
+
+.subdomain-card.maintenance:hover {
+    border-color: rgba(255, 152, 0, 0.4);
+    background-color: var(--color-bg-surface);
 }
 
 /* ==========================================================================
