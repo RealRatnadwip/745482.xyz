@@ -272,19 +272,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data && data.length > 0) {
                     const commitDateStr = data[0].commit.committer.date;
                     const commitDate = new Date(commitDateStr);
-                    // Format commit date as a friendly string in UTC timezone
+                    // Format commit date as a friendly compact string in UTC timezone
                     const options = {
                         year: 'numeric',
                         month: 'short',
-                        day: '2-digit',
+                        day: 'numeric',
                         hour: '2-digit',
                         minute: '2-digit',
-                        second: '2-digit',
-                        timeZone: 'UTC',
-                        timeZoneName: 'short'
+                        hour12: false,
+                        timeZone: 'UTC'
                     };
                     const formattedDate = commitDate.toLocaleDateString('en-US', options);
-                    lastUpdatedEl.textContent = `Last Updated: ${formattedDate}`;
+                    lastUpdatedEl.textContent = `Updated: ${formattedDate} UTC`;
                 } else {
                     lastUpdatedEl.textContent = '';
                 }
