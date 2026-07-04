@@ -784,12 +784,38 @@ body {
         padding: 1rem 0.75rem;
     }
 
+    body:not(.subdomain-page) {
+        overflow-y: auto;
+        height: auto;
+        min-height: 100dvh;
+    }
+
     .container {
         gap: 1.25rem;
     }
 
+    body:not(.subdomain-page) .container {
+        height: auto;
+        min-height: calc(100dvh - 2rem);
+    }
+
     .site-main {
         gap: 1.25rem;
+    }
+
+    body:not(.subdomain-page) .site-main {
+        overflow: visible;
+        flex: none;
+    }
+
+    body:not(.subdomain-page) .subdomains-section {
+        flex: none;
+    }
+
+    body:not(.subdomain-page) .subdomain-grid {
+        height: auto;
+        overflow: visible;
+        flex: none;
     }
 
     .hero-title {

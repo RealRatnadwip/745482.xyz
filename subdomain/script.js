@@ -33,15 +33,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <p class="subdomain-desc">${sub.desc}</p>
                         <div class="card-footer-author" style="margin-top: 0.5rem; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.7rem; color: var(--color-text-muted); font-family: var(--font-mono);">
-                            <span>by ${sub.contactName}</span>
+                            <span>by <a href="${sub.contactUrl}" target="_blank" class="footer-link" style="border-bottom: 1px dotted var(--color-border);">${sub.contactName}</a></span>
                         </div>
                         <div class="card-drawer">
                             <div class="site-detail-desc" style="font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 0.75rem;">
                                 ${sub.siteDesc}
                             </div>
-                            <div class="site-detail-contact" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-muted); margin-bottom: 1rem;">
-                                Creator: <a href="${sub.contactUrl}" target="_blank" class="footer-link" style="border-bottom: 1px dotted var(--color-border);">${sub.contactName}</a>
+                            ${sub.status === 'active' ? `
+                            <div style="margin-top: 0.75rem; margin-bottom: 0.75rem;">
+                                <a href="https://${sub.host}" target="_blank" rel="noopener" class="visit-link-btn">
+                                    VISIT NODE <span class="arrow-visit">→</span>
+                                </a>
                             </div>
+                            ` : ''}
                             <div class="og-preview" id="preview-${index}">
                                 <!-- Will be filled dynamically -->
                             </div>
@@ -51,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Add expansion trigger on click
                     card.addEventListener('click', (e) => {
                         // Prevent double triggering if clicking links inside the drawer
-                        if (e.target.closest('.visit-link') || e.target.closest('.og-image-wrapper') || e.target.closest('.footer-link')) return;
+                        if (e.target.closest('.visit-link-btn') || e.target.closest('.visit-link') || e.target.closest('.og-image-wrapper') || e.target.closest('.footer-link')) return;
 
                         const isExpanded = card.classList.contains('expanded');
 
