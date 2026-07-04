@@ -174,3 +174,36 @@
 .visit-link:hover {
     border-bottom-color: var(--color-accent);
 }
+
+.visit-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-accent);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid var(--color-border);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all var(--transition-speed) var(--transition-timing);
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.visit-link-btn:hover {
+    background-color: var(--color-accent);
+    color: var(--color-bg-base);
+    border-color: var(--color-accent);
+}
+
+.visit-link-btn .arrow-visit {
+    transition: transform var(--transition-speed) var(--transition-timing);
+    display: inline-block;
+}
+
+.visit-link-btn:hover .arrow-visit {
+    transform: translateX(3px);
+}
+
