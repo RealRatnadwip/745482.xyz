@@ -1,0 +1,176 @@
+.subdomain-page-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Customize cards for expansion */
+.subdomain-card {
+    cursor: pointer;
+    user-select: none;
+    transition: border-color var(--transition-speed) var(--transition-timing),
+        background-color var(--transition-speed) var(--transition-timing);
+}
+
+.expand-indicator {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    transition: transform var(--transition-speed) var(--transition-timing),
+        color var(--transition-speed) var(--transition-timing);
+    margin-left: auto;
+}
+
+.subdomain-card:hover .expand-indicator {
+    color: var(--color-accent);
+}
+
+.subdomain-card.expanded {
+    border-color: var(--color-border-hover);
+    background-color: var(--color-bg-surface-hover);
+}
+
+.subdomain-card.expanded .expand-indicator {
+    transform: rotate(90deg);
+    color: var(--color-accent);
+}
+
+/* Expandable content drawer */
+.card-drawer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s var(--transition-timing), opacity 0.3s var(--transition-timing);
+    opacity: 0;
+}
+
+.subdomain-card.expanded .card-drawer {
+    max-height: 380px;
+    opacity: 1;
+}
+
+/* OG Preview layout */
+.og-preview {
+    border-top: 1px dashed var(--color-border);
+    margin-top: 0.85rem;
+    padding-top: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.og-image-wrapper {
+    width: 100%;
+    height: 160px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    position: relative;
+    background-color: var(--color-bg-base);
+}
+
+.og-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity var(--transition-speed) var(--transition-timing);
+}
+
+.og-image.loaded {
+    opacity: 1;
+}
+
+.og-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.og-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.og-desc {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+}
+
+.og-badge {
+    font-size: 0.65rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    color: var(--color-accent);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+}
+
+/* Shimmer loading layout */
+.shimmer-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.shimmer {
+    background: linear-gradient(90deg,
+            var(--color-bg-surface) 25%,
+            var(--color-border) 50%,
+            var(--color-bg-surface) 75%);
+    background-size: 200% 100%;
+    animation: loading-shimmer 1.5s infinite linear;
+}
+
+@keyframes loading-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.shimmer-img {
+    width: 100%;
+    height: 160px;
+    border-radius: 4px;
+}
+
+.shimmer-line {
+    height: 12px;
+    border-radius: 2px;
+}
+
+.shimmer-line.title {
+    width: 40%;
+}
+
+.shimmer-line.desc1 {
+    width: 90%;
+}
+
+.shimmer-line.desc2 {
+    width: 75%;
+}
+
+/* Open active subdomains */
+.visit-link {
+    align-self: flex-start;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 0.25rem;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--transition-speed) var(--transition-timing);
+}
+
+.visit-link:hover {
+    border-bottom-color: var(--color-accent);
+}

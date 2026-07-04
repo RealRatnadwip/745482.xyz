@@ -154,6 +154,25 @@ body {
     color: var(--color-accent);
 }
 
+.back-link-container {
+    margin-bottom: -0.5rem;
+}
+
+.back-link {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color var(--transition-speed) var(--transition-timing);
+}
+
+.back-link:hover {
+    color: var(--color-accent);
+}
+
 .status-indicator {
     display: flex;
     align-items: center;
@@ -337,17 +356,40 @@ body {
     align-items: center;
 }
 
-.subdomain-url {
+.subdomain-url-full,
+.subdomain-url-short {
     font-family: var(--font-mono);
     font-size: 1rem;
     font-weight: 500;
     color: var(--color-text-primary);
     transition: color var(--transition-speed) var(--transition-timing);
+    word-break: break-all;
+    overflow-wrap: anywhere;
 }
 
-.subdomain-card:hover .subdomain-url,
-.subdomain-card:focus-visible .subdomain-url {
+.subdomain-card:hover .subdomain-url-full,
+.subdomain-card:focus-visible .subdomain-url-full,
+.subdomain-card:hover .subdomain-url-short,
+.subdomain-card:focus-visible .subdomain-url-short {
     color: var(--color-accent);
+}
+
+@media (min-width: 480px) {
+    .subdomain-url-full {
+        display: inline;
+    }
+    .subdomain-url-short {
+        display: none;
+    }
+}
+
+@media (max-width: 479px) {
+    .subdomain-url-full {
+        display: none;
+    }
+    .subdomain-url-short {
+        display: inline;
+    }
 }
 
 .arrow-icon {
@@ -371,7 +413,9 @@ body {
 .url-group {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.35rem 0.6rem;
+    flex-wrap: wrap;
+    min-width: 0;
 }
 
 .status-badge {
@@ -382,6 +426,8 @@ body {
     border-radius: 4px;
     font-weight: 600;
     letter-spacing: 0.05em;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .status-badge.status-active {
@@ -417,6 +463,21 @@ body {
 
 .subdomain-card.maintenance:hover {
     border-color: rgba(255, 152, 0, 0.4);
+    background-color: var(--color-bg-surface);
+}
+
+.status-badge.status-comingsoon {
+    background-color: rgba(33, 150, 243, 0.15);
+    color: #2196f3;
+    border: 1px solid rgba(33, 150, 243, 0.25);
+}
+
+.subdomain-card.comingsoon {
+    opacity: 0.8;
+}
+
+.subdomain-card.comingsoon:hover {
+    border-color: rgba(33, 150, 243, 0.4);
     background-color: var(--color-bg-surface);
 }
 
@@ -771,6 +832,12 @@ body {
     }
 }
 
+@media (max-width: 520px) {
+    .metadata-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* ==========================================================================
    CONSOLE ACTIVE LAYOUT ADJUSTMENTS
    ========================================================================== */
@@ -829,5 +896,198 @@ body.console-active .site-main {
 @media (max-height: 700px) {
     body.console-active .meta-console {
         height: 145px;
+    }
+}
+
+/* ==========================================================================
+   SPONSORED BADGES & ADVERTISEMENTS
+   ========================================================================== */
+.status-badge.status-sponsored {
+    background-color: rgba(255, 215, 0, 0.1);
+    color: #ffd700;
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    box-shadow: 0 0 6px rgba(255, 215, 0, 0.1);
+}
+
+body {
+    gap: 3.5rem; /* Space between banners and container on desktop */
+}
+
+.ad-banner {
+    background-color: var(--color-bg-surface);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--border-radius);
+    padding: 1.25rem;
+    position: relative;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    transition: opacity 0.5s ease-in-out, border-color var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing);
+    box-sizing: border-box;
+}
+
+.ad-banner:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 12px var(--color-accent-glow);
+}
+
+.ad-tag {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    font-size: 0.6rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.ad-title {
+    color: var(--color-accent);
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+}
+
+.ad-desc {
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+    margin-bottom: 1rem;
+}
+
+.ad-button {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: var(--color-bg-base);
+    border: 1px solid var(--color-border);
+    padding: 0.5rem;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+    transition: all var(--transition-speed) var(--transition-timing);
+    box-sizing: border-box;
+}
+
+.ad-button:hover {
+    background-color: var(--color-accent);
+    color: var(--color-bg-base);
+    border-color: var(--color-accent);
+}
+
+.ad-banner-vertical {
+    width: 160px;
+    min-height: 440px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.25rem 0.75rem;
+}
+
+/* Horizontal Ads (Mobile View) */
+.ad-banner-horizontal {
+    width: 100%;
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.ad-banner-horizontal .ad-desc {
+    margin-bottom: 0;
+}
+
+/* Display Toggling based on viewport width */
+@media (min-width: 1080px) {
+    .ad-banner-vertical {
+        display: flex;
+    }
+    .ad-banner-horizontal {
+        display: none;
+    }
+}
+
+@media (max-width: 1079px) {
+    .ad-banner-vertical {
+        display: none;
+    }
+    .ad-banner-horizontal {
+        display: block;
+    }
+    body {
+        gap: 0;
+    }
+}
+
+/* ==========================================================================
+   HEIGHT-BASED RESPONSIVENESS (Conditional scrolling under 700px)
+   ========================================================================== */
+
+@media (max-height: 700px) {
+    /* Homepage and other standard pages (e.g. /about) */
+    body:not(.subdomain-page) {
+        overflow-y: auto;
+        height: auto;
+        min-height: 100dvh;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    body:not(.subdomain-page) .container {
+        height: auto;
+        min-height: calc(100dvh - 3rem);
+        gap: 1.5rem;
+    }
+
+    body:not(.subdomain-page) .site-main {
+        overflow: visible;
+        flex: none;
+        gap: 1.25rem;
+    }
+
+    body:not(.subdomain-page) .subdomains-section {
+        flex: none;
+    }
+
+    body:not(.subdomain-page) .subdomain-grid {
+        height: 170px;
+        overflow-y: auto;
+        flex: none;
+    }
+
+    /* Subdomain Page (utilize full height) */
+    body.subdomain-page {
+        overflow: hidden;
+        height: 100dvh;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    body.subdomain-page .container {
+        height: 100%;
+        gap: 1.5rem;
+    }
+
+    body.subdomain-page .site-main {
+        overflow: hidden;
+        flex: 1;
+        gap: 1.25rem;
+    }
+
+    body.subdomain-page .subdomains-section {
+        flex: 1;
+        min-height: 0;
+    }
+
+    body.subdomain-page .subdomain-grid {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        padding-right: 4px;
     }
 }

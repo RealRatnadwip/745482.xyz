@@ -4,52 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A small corner of the internet</title>
-
-    <!-- some numbers remember -->
-
-    <!-- SEO Meta Tags -->
-    <meta name="description"
-        content="745482.xyz - Just six digits that happen to exist. A minimal, static corner of the internet maintained by Ratnadwip Sarkar.">
-    <meta name="robots" content="index, follow">
-    <meta name="generator" content="HTML">
-    <meta name="author" content="RealRatnadwip">
-    <!-- not every identifier identifies -->
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://745482.xyz/">
-    <meta property="og:title" content="A small corner of the internet">
-    <meta property="og:description" content="Just six digits that happen to exist. Part of the RealRatnadwip network.">
-    <meta property="og:image" content="https://745482.xyz/og-image.png">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:site_name" content="745482.xyz">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://745482.xyz/">
-    <meta property="twitter:title" content="745482.xyz - A small corner of the internet">
-    <meta property="twitter:description"
-        content="Just six digits that happen to exist. Part of the RealRatnadwip network.">
-    <meta property="twitter:image" content="https://745482.xyz/og-image.png">
-
-    <!-- Fonts -->
+    <title>Subdomains // 745482.xyz</title>
+    <meta name="description" content="Subdomain directory registry of 745482.xyz.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
         rel="stylesheet">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=2">
-
-    <!-- Stylesheet -->
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg?v=2">
+    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="subdomain-page">
 
     <!-- Left Ad Banner -->
     <div class="ad-banner ad-banner-vertical ad-banner-left">
@@ -72,13 +39,12 @@
     </div>
 
     <div class="container">
-        <!-- if you know, you know -->
         <!-- Header -->
         <header class="site-header">
-            <div class="logo">
+            <a href="../" class="logo" style="text-decoration: none;">
                 <span class="logo-accent">[</span>745482.xyz<span class="logo-accent">]</span>
-                <img src="./favicon.svg" class="header-favicon" alt="" aria-hidden="true">
-            </div>
+                <img src="../favicon.svg" class="header-favicon" alt="" aria-hidden="true">
+            </a>
             <div class="status-indicator">
                 <span class="status-dot"></span>
                 <span class="status-text">node_online</span>
@@ -86,72 +52,20 @@
         </header>
 
         <!-- Main Content -->
-        <main class="site-main">
-            <!-- Hero Section -->
-            <section class="hero-section">
-                <h1 class="hero-title">A small corner of the <span class="highlight-block">internet.</span></h1>
-                <p class="hero-subtitle">Just six digits that happen to exist.</p>
-            </section>
+        <main class="site-main subdomain-page-section">
+            <div class="back-link-container">
+                <a href="../" class="back-link">← /home</a>
+            </div>
 
-            <!-- Philosophy Quote / Statement -->
-            <section class="philosophy-section">
-                <div class="quote-card">
-                    <p class="quote-text">
-                        Some things on the internet are built for millions of people. <br>
-                        Some are built for exactly <span class="highlight-accent">one</span>.
-                    </p>
-                </div>
-            </section>
-
-            <!-- another sequence exists -->
-            <!-- 786482 -->
-            <!-- Subdomains / Network Links -->
+            <!-- Registry Section -->
             <section class="subdomains-section">
                 <div class="section-header-row">
-                    <h2 class="section-title">List of Subdomains</h2>
+                    <h2 class="section-title">Subdomain Registry</h2>
                     <span class="last-updated" id="last-updated-time">Last Updated: Loading...</span>
                 </div>
                 <div class="subdomain-grid">
-                    <a href="https://traffic.745482.xyz" class="subdomain-card" target="_blank" rel="noopener">
-                        <div class="card-header">
-                            <div class="url-group">
-                                <span class="subdomain-url">traffic.745482.xyz</span>
-                                <span class="status-badge status-active">active</span>
-                            </div>
-                            <span class="arrow-icon">→</span>
-                        </div>
-                        <p class="subdomain-desc">Traffic: The Band Page</p>
-                    </a>
-                </div>
-            </section>
-
-            <!-- intentional -->
-            <!-- Node Metadata -->
-            <section class="metadata-section">
-                <div class="metadata-grid">
-                    <button class="metadata-item" id="meta-btn-network" type="button" aria-label="Route analysis">
-                        <span class="meta-label">network</span>
-                        <span class="meta-value">RealRatnadwip</span>
-                    </button>
-                    <button class="metadata-item" id="meta-btn-color" type="button" aria-label="Accent color telemetry">
-                        <span class="meta-value-colored">#745482</span>
-                        <span class="meta-label">accent_color</span>
-                    </button>
-                    <button class="metadata-item" id="meta-btn-type" type="button" aria-label="Node diagnostics">
-                        <span class="meta-label">type</span>
-                        <span class="meta-value">static_node</span>
-                    </button>
-                </div>
-
-                <!-- Interactive Terminal Console -->
-                <div class="meta-console" id="meta-console" aria-live="polite">
-                    <div class="console-header">
-                        <span class="console-title" id="console-title">system_diagnostics.sh</span>
-                        <button class="console-close" id="console-close-btn" type="button"
-                            aria-label="Close terminal">&times;</button>
-                    </div>
-                    <div class="console-body" id="console-body">
-                        <!-- Dynamic content output -->
+                    <div style="font-family: var(--font-mono); font-size: 0.8125rem; color: var(--color-text-muted);">
+                        Loading subdomain node records...
                     </div>
                 </div>
             </section>
@@ -175,10 +89,11 @@
 
         <!-- Footer -->
         <footer class="site-footer">
-            <div class="footer-nav" style="display: flex; gap: 1rem; margin-bottom: 0.5rem; font-family: var(--font-mono); font-size: 0.75rem;">
-                <a href="./about/" class="footer-link">/about</a>
+            <div class="footer-nav"
+                style="display: flex; gap: 1rem; margin-bottom: 0.5rem; font-family: var(--font-mono); font-size: 0.75rem;">
+                <a href="../" class="footer-link">/home</a>
                 <span class="logo-accent">|</span>
-                <a href="./subdomain/" class="footer-link">/subdomain</a>
+                <a href="../about/" class="footer-link">/about</a>
             </div>
             <p>This domain is part of the <a href="https://ratnadwip.com" class="footer-link" target="_blank"
                     rel="noopener">RealRatnadwip</a> network and is maintained by Ratnadwip Sarkar.</p>
@@ -208,7 +123,7 @@
 
 
     <!-- Site Logic -->
-    <script src="shared.js" defer></script>
+    <script src="../shared.js" defer></script>
     <script src="script.js" defer></script>
 </body>
 
