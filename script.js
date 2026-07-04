@@ -14,8 +14,6 @@ console.info("Some numbers carry more information than others.");
 
 document.addEventListener('DOMContentLoaded', () => {
     // Cache DOM elements
-    const yearEl = document.getElementById('current-year');
-    const follower = document.getElementById('cursor-follower');
     const grid = document.querySelector('.subdomain-grid');
     const consoleEl = document.getElementById('meta-console');
     const consoleBody = document.getElementById('console-body');
@@ -26,93 +24,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnColor = document.getElementById('meta-btn-color');
     const btnType = document.getElementById('meta-btn-type');
 
-    // Update footer copyright year dynamically
-    if (yearEl) {
-        yearEl.textContent = new Date().getFullYear();
-    }
+    window.initGitHubTelemetry('last-updated-time');
 
-    // Performance-optimized Cursor Follower Logic (throttled with requestAnimationFrame)
-    if (follower) {
-        let mouseX = 0, mouseY = 0;
-        let pendingUpdate = false;
-
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            if (!pendingUpdate) {
-                pendingUpdate = true;
-                requestAnimationFrame(() => {
-                    follower.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate3d(-50%, -50%, 0)`;
-                    pendingUpdate = false;
-                });
-            }
-        });
-    }
-
-    // Dynamically fetch and render subdomains from subdomain.md with DocumentFragment
-    fetch('./subdomain.md')
-        .then(response => {
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            return response.text();
-        })
-        .then(data => {
-            const subdomains = data.split(/\r?\n/)
-                .map(line => line.trim())
-                .filter(Boolean)
-                .map(line => {
-                    const idx = line.indexOf(' - ');
-                    if (idx === -1) return null;
-                    const host = line.substring(0, idx).trim();
-
-                    // Only match actual subdomains to exclude templates or other lines
-                    const hostRegex = /^[a-zA-Z0-9.-]+\.745482\.xyz$/;
-                    if (!hostRegex.test(host)) return null;
-
-                    let desc = line.substring(idx + 3).trim();
-
-                    let status = 'active'; // Default
-                    const lowerDesc = desc.toLowerCase();
-                    if (lowerDesc.includes('*active')) {
-                        status = 'active';
-                        desc = desc.replace(/\*[Aa]ctive/g, '').trim();
-                    } else if (lowerDesc.includes('*inactive')) {
-                        status = 'inactive';
-                        desc = desc.replace(/\*[Ii]nactive/g, '').trim();
-                    } else if (/\*(maintanance|maintenance|maintance)/i.test(lowerDesc)) {
-                        status = 'maintenance';
-                        desc = desc.replace(/\*(maintanance|maintenance|maintance)/gi, '').trim();
-                    }
-                    return { host, desc, status };
-                })
-                .filter(item => item && item.host && item.desc);
-
+    // Fetch and render subdomains
+    window.fetchAndParseSubdomains('./subdomain.md')
+        .then(subdomains => {
             if (subdomains.length > 0 && grid) {
                 const fragment = document.createDocumentFragment();
                 subdomains.forEach(sub => {
                     const card = document.createElement('a');
-                    card.className = 'subdomain-card';
+                    card.className = `subdomain-card ${sub.status}`;
                     if (sub.status === 'active') {
                         card.href = `https://${sub.host}`;
                         card.target = '_blank';
                         card.rel = 'noopener';
                     } else {
-                        card.classList.add(sub.status);
                         card.style.cursor = 'default';
                     }
                     card.innerHTML = `
                         <div class="card-header">
                             <div class="url-group">
-                                <span class="subdomain-url">${sub.host}</span>
-                                <span class="status-badge status-${sub.status}">${sub.status}</span>
+                                <span class="subdomain-url-full">${sub.host}</span>
+                                <span class="subdomain-url-short">${sub.name}</span>
+                                <span class="status-badge status-${sub.status}">${sub.status === 'comingsoon' ? 'coming soon' : sub.status}</span>
                             </div>
                             ${sub.status === 'active' ? '<span class="arrow-icon">→</span>' : ''}
                         </div>
                         <p class="subdomain-desc">${sub.desc}</p>
+                        <div class="card-footer-author" style="margin-top: 0.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.7rem; color: var(--color-text-muted); font-family: var(--font-mono);">
+                            <span>by ${sub.contactName}</span>
+                        </div>
                     `;
                     fragment.appendChild(card);
                 });
                 grid.innerHTML = ''; // Clear fallback
                 grid.appendChild(fragment);
+
+                // Initialize shared sponsored banners
+                window.initSponsoredBanners(subdomains);
             }
         })
         .catch(error => console.error('Error fetching subdomains:', error));
@@ -259,38 +208,4 @@ document.addEventListener('DOMContentLoaded', () => {
         ];
         animateTerminalText('system_diagnostics.sh', lines);
     });
-
-    // Dynamically fetch last commit time from GitHub API
-    const lastUpdatedEl = document.getElementById('last-updated-time');
-    if (lastUpdatedEl) {
-        fetch('https://api.github.com/repos/RealRatnadwip/745482.xyz/commits?per_page=1')
-            .then(response => {
-                if (!response.ok) throw new Error('Network response not ok');
-                return response.json();
-            })
-            .then(data => {
-                if (data && data.length > 0) {
-                    const commitDateStr = data[0].commit.committer.date;
-                    const commitDate = new Date(commitDateStr);
-                    // Format commit date as a friendly compact string in UTC timezone
-                    const options = {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        hour12: false,
-                        timeZone: 'UTC'
-                    };
-                    const formattedDate = commitDate.toLocaleDateString('en-US', options);
-                    lastUpdatedEl.textContent = `Updated: ${formattedDate} UTC`;
-                } else {
-                    lastUpdatedEl.textContent = '';
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching last commit:', error);
-                lastUpdatedEl.textContent = ''; // Hide or show fallback on error
-            });
-    }
 });
