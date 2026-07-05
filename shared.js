@@ -75,10 +75,27 @@ window.initSponsoredBanners = function(subdomains) {
         if (horizontalBanner && adMobile) fadeAndUpdateBanner(horizontalBanner, adMobile);
     };
 
+    const getStatusDetails = (status) => {
+        switch (status) {
+            case 'active':
+                return { color: '#4caf50', text: 'active', alert: '' };
+            case 'comingsoon':
+                return { color: '#2196f3', text: 'coming soon', alert: 'This node is coming soon.' };
+            case 'inactive':
+                return { color: '#f44336', text: 'inactive', alert: 'This node is currently offline.' };
+            case 'maintenance':
+                return { color: '#ff9800', text: 'maintenance', alert: 'This node is currently under maintenance.' };
+            default:
+                return { color: '#ff9800', text: status, alert: `This node is ${status}.` };
+        }
+    };
+
     const fadeAndUpdateBanner = (bannerElement, adData) => {
         bannerElement.style.opacity = '0';
         setTimeout(() => {
             const isVertical = bannerElement.classList.contains('ad-banner-vertical');
+            const details = getStatusDetails(adData.status);
+
             if (isVertical) {
                 bannerElement.innerHTML = `
                     <span class="ad-tag">sponsored_node</span>
@@ -91,14 +108,14 @@ window.initSponsoredBanners = function(subdomains) {
                         
                         <div class="ad-telemetry" style="border-top: 1px dashed var(--color-border); padding-top: 0.75rem; font-size: 0.65rem; color: var(--color-text-muted); display: flex; flex-direction: column; gap: 0.35rem; font-family: var(--font-mono); line-height: 1.4;">
                             <div style="text-transform: uppercase; font-weight: 600; color: var(--color-accent); margin-bottom: 0.15rem;">[Node Telemetry]</div>
-                            <div>status: <span style="color: ${adData.status === 'active' ? '#4caf50' : (adData.status === 'comingsoon' ? '#2196f3' : '#ff9800')};">${adData.status === 'comingsoon' ? 'coming soon' : adData.status}</span></div>
+                            <div>status: <span style="color: ${details.color};">${details.text}</span></div>
                             <div>creator: <a href="${adData.contactUrl}" target="_blank" class="footer-link" style="border-bottom: 1px dotted var(--color-border);">${adData.contactName}</a></div>
-                            <div>ping_latency: ${Math.floor(Math.random() * 45) + 15}ms</div>
+                            <div>ping_latency: ${adData.status === 'active' ? Math.floor(Math.random() * 45) + 15 + 'ms' : '--'}</div>
                             <div>node_integrity: verified</div>
                             <div style="margin-top: 0.25rem; font-size: 0.55rem; color: var(--color-text-muted); opacity: 0.6;">* Data verified via secure local registry config.</div>
                         </div>
                     </div>
-                    <a href="${adData.status === 'active' ? 'https://' + adData.host : '#'}" ${adData.status === 'active' ? 'target="_blank" rel="noopener"' : 'onclick="alert(\'This node is coming soon.\'); return false;"'} class="ad-button" style="margin-top: 0.75rem;">VISIT_SITE</a>
+                    <a href="${adData.status === 'active' ? 'https://' + adData.host : '#'}" ${adData.status === 'active' ? 'target="_blank" rel="noopener"' : `onclick="alert(\'${details.alert}\'); return false;"`} class="ad-button" style="margin-top: 0.75rem;">VISIT_SITE</a>
                 `;
             } else {
                 bannerElement.innerHTML = `
@@ -112,7 +129,7 @@ window.initSponsoredBanners = function(subdomains) {
                         <span style="color: var(--color-text-muted);">
                             Via: <a href="${adData.contactUrl}" target="_blank" class="footer-link">${adData.contactName}</a>
                         </span>
-                        <a href="${adData.status === 'active' ? 'https://' + adData.host : '#'}" ${adData.status === 'active' ? 'target="_blank" rel="noopener"' : 'onclick="alert(\'This node is coming soon.\'); return false;"'} class="visit-link" style="margin: 0; color: var(--color-accent); font-weight: 600;">VISIT_SITE →</a>
+                        <a href="${adData.status === 'active' ? 'https://' + adData.host : '#'}" ${adData.status === 'active' ? 'target="_blank" rel="noopener"' : `onclick="alert(\'${details.alert}\'); return false;"`} class="visit-link" style="margin: 0; color: var(--color-accent); font-weight: 600;">VISIT_SITE →</a>
                     </div>
                 `;
             }

@@ -4,6 +4,34 @@ This document serves as the single source of truth configuration for the subdoma
 
 ---
 
+## Registry Guide & Schema
+
+To register or modify a subdomain, append or edit a row in the table below matching this exact format:
+
+### Column Definitions & Allowed Values:
+
+1. **Name**: The display name of the project/subdomain.
+   - *Example:* `Example`
+2. **Subdomain**: The fully qualified domain name.
+   - *Example:* `example.745482.xyz`
+3. **Sponsored**: Marks whether the subdomain is displayed in the landing page's rotating ad banners.
+   - *Allowed values:* `true` or `false`
+4. **Status**: The current state of the subdomain node.
+   - *Allowed values:*
+     - `active`: Fully operational. Renders a direct link and loads live open-graph preview telemetry.
+     - `maintenance`: Node is temporarily offline for maintenance. Renders static placeholder telemetry.
+     - `coming soon`: Node is in development. Renders static placeholder telemetry.
+     - `inactive`: Node is offline. Renders static placeholder telemetry.
+5. **Creator Contact**: Markdown link to the creator's profile page, website, or social handles.
+   - *Format:* `[Name](URL)`
+   - *Example:* `[Creator](https://link_to_creator_profile)`
+6. **Home Description**: Short tag-line description displayed on the homepage registry grid cards.
+   - *Limit:* Keep it under 60 characters for optimal rendering.
+7. **Site Description**: Detailed description displayed inside the expanded drawer card on the `/subdomain` page.
+   - *Limit:* Keep it under 150 characters for optimal rendering.
+
+---
+
 ## Active Registry Table
 
 | Name | Subdomain | Sponsored | Status | Creator Contact | Home Description | Site Description |
@@ -13,4 +41,6 @@ This document serves as the single source of truth configuration for the subdoma
 | Flower Bouquet | bouquet.745482.xyz | false | active | [Ratnadwip](https://ratnadwip.com) | Flower Bouquet | An interactive web canvas allowing users to arrange and send virtual flower bouquets with personalized notes. |
 | SpotifyOnBudget | spotifyonbudget.745482.xyz | false | active | [Ratnadwip](https://ratnadwip.com) | SpotifyOnBudget | A web-app that plays music from Google Drive like a Spotify player. |
 | Omnichord | omnichord.745482.xyz | false | active | [Ratnadwip](https://ratnadwip.com) | Omnichord | A digital synthesizer recreation of the retro Suzuki Omnichord instrument, featuring auto-harp strum triggers. |
+| Infinite Canvas | infinitecanvas.745482.xyz | false | coming soon | [Ratnadwip](https://ratnadwip.com) | Infinite Canvas | A 3D infinite canvas project allowing users to create and share their own infinite canvas. |
 | Constellation | constellation.745482.xyz | false | maintenance | [Ratnadwip](https://ratnadwip.com) | Constellation of My Stars | A 3D interactive stellar map project detailing custom coordinates and star configurations. |
+| Windows | windows.745482.xyz | false | inactive | [Ratnadwip](https://ratnadwip.com) | A view from a window | A web-app that displays a view out a virtual window to a virtual outdoor scene. |

@@ -813,9 +813,10 @@ body {
     }
 
     body:not(.subdomain-page) .subdomain-grid {
-        height: auto;
-        overflow: visible;
+        max-height: 195px;
+        overflow-y: auto;
         flex: none;
+        padding-right: 4px;
     }
 
     .hero-title {
@@ -858,9 +859,29 @@ body {
     }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 480px) {
+    .metadata-grid {
+        gap: 0.35rem;
+    }
+
+    .metadata-item {
+        padding: 0.6rem 0.4rem;
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 355px) {
     .metadata-grid {
         grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .metadata-item {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        font-size: 0.75rem;
     }
 }
 
