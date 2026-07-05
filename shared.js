@@ -4,9 +4,20 @@
 
 // 1. Fetch and Parse subdomain.md
 window.fetchAndParseSubdomains = function(relativePathToMd) {
-    return fetch(relativePathToMd)
+    let fetchUrl = relativePathToMd;
+    
+    // In production, fetch the registry from the main branch directly to keep it decoupled
+    const isProduction = window.location.hostname === '745482.xyz' || 
+                         window.location.hostname.endsWith('.745482.xyz') || 
+                         window.location.hostname.includes('github.io');
+                         
+    if (isProduction) {
+        fetchUrl = 'https://raw.githubusercontent.com/RealRatnadwip/745482.xyz/main/subdomain.md';
+    }
+
+    return fetch(fetchUrl)
         .then(response => {
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status} URL: ${fetchUrl}`);
             return response.text();
         })
         .then(data => {
