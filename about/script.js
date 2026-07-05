@@ -1,22 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Interactive Color Selector logic
-    const colorSelectors = document.querySelectorAll('.color-selector');
-    colorSelectors.forEach(selector => {
+    const selectors = document.querySelectorAll('.color-selector');
+    selectors.forEach(selector => {
         selector.addEventListener('click', () => {
-            colorSelectors.forEach(s => s.classList.remove('active'));
+            selectors.forEach(item => item.classList.remove('active'));
             selector.classList.add('active');
 
-            const color = selector.getAttribute('data-color');
-            const rgb = selector.getAttribute('data-rgb');
-            const glow = selector.getAttribute('data-glow');
-            const muted = selector.getAttribute('data-muted');
-
-            // Apply variables to root style
-            document.documentElement.style.setProperty('--color-accent', color);
-            document.documentElement.style.setProperty('--color-accent-rgb', rgb);
-            document.documentElement.style.setProperty('--color-accent-glow', glow);
-            document.documentElement.style.setProperty('--color-accent-muted', muted);
+            const rootStyle = document.documentElement.style;
+            rootStyle.setProperty('--color-accent', selector.getAttribute('data-color'));
+            rootStyle.setProperty('--color-accent-rgb', selector.getAttribute('data-rgb'));
+            rootStyle.setProperty('--color-accent-glow', selector.getAttribute('data-glow'));
+            rootStyle.setProperty('--color-accent-muted', selector.getAttribute('data-muted'));
         });
     });
-
 });
