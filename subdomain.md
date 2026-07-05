@@ -41,6 +41,7 @@ To register or modify a subdomain, append or edit a row in the table below match
 | Flower Bouquet | bouquet.745482.xyz | false | active | [Ratnadwip](https://ratnadwip.com) | Flower Bouquet | An interactive web canvas allowing users to arrange and send virtual flower bouquets with personalized notes. |
 | SpotifyOnBudget | spotifyonbudget.745482.xyz | false | active | [Ratnadwip](https://ratnadwip.com) | SpotifyOnBudget | A web-app that plays music from Google Drive like a Spotify player. |
 | Omnichord | omnichord.745482.xyz | false | active | [Ratnadwip](https://ratnadwip.com) | Omnichord | A digital synthesizer recreation of the retro Suzuki Omnichord instrument, featuring auto-harp strum triggers. |
+| BSRC | bsrc.745482.xyz | false | active | [Ratnadwip](https://ratnadwip.com) | BackShot Roulette Calculator | A web-app that calculate bullet probability for the game BackShot Roulette. |
 | Infinite Canvas | infinitecanvas.745482.xyz | false | coming soon | [Ratnadwip](https://ratnadwip.com) | Infinite Canvas | A 3D infinite canvas project allowing users to create and share their own infinite canvas. |
 | Constellation | constellation.745482.xyz | false | maintenance | [Ratnadwip](https://ratnadwip.com) | Constellation of My Stars | A 3D interactive stellar map project detailing custom coordinates and star configurations. |
 | Windows | windows.745482.xyz | false | inactive | [Ratnadwip](https://ratnadwip.com) | A view from a window | A web-app that displays a view out a virtual window to a virtual outdoor scene. |
