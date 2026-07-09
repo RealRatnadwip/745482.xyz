@@ -36,7 +36,7 @@ To register or modify a subdomain, append or edit a row in the table below match
 
 | Name | Subdomain | Sponsored | Status | Creator Contact | Home Description | Site Description |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| DepoShield | deposhield.745482.xyz | true | coming soon | [Ranit](https://www.linkedin.com/in/ranit-pal/) | Trustless Security Deposit Escrow | A decentralized, trustless smart contract escrow for security deposits, ensuring fair dispute resolution. |
+| DepoShield | deposhield.745482.xyz | true | active | [Ranit](https://www.linkedin.com/in/ranit-pal/) | Trustless Security Deposit Escrow | A decentralized, trustless smart contract escrow for security deposits, ensuring fair dispute resolution. |
 | Traffic | traffic.745482.xyz | true | active | [Traffic](https://www.instagram.com/traffic.theband/) | Traffic: The Band Page | The official portal of Traffic: The Band, a Bengal-based rock, blues, alternative, funk, indie project. |
 | Flower Bouquet | bouquet.745482.xyz | false | active | [Ratnadwip](https://ratnadwip.com) | Flower Bouquet | An interactive web canvas allowing users to arrange and send virtual flower bouquets with personalized notes. |
 | SpotifyOnBudget | spotifyonbudget.745482.xyz | false | active | [Ratnadwip](https://ratnadwip.com) | SpotifyOnBudget | A web-app that plays music from Google Drive like a Spotify player. |
