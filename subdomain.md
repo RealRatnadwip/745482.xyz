@@ -42,6 +42,7 @@ To register or modify a subdomain, append or edit a row in the table below match
 | SpotifyOnBudget | spotifyonbudget.745482.xyz | false | active | [Ratnadwip](https://ratnadwip.com) | SpotifyOnBudget | A web-app that plays music from Google Drive like a Spotify player. |
 | Omnichord | omnichord.745482.xyz | false | active | [Ratnadwip](https://ratnadwip.com) | Omnichord | A digital synthesizer recreation of the retro Suzuki Omnichord instrument, featuring auto-harp strum triggers. |
 | BSRC | bsrc.745482.xyz | false | active | [Ratnadwip](https://ratnadwip.com) | BackShot Roulette Calculator | A web-app that calculate bullet probability for the game BackShot Roulette. |
+| Souradip | souradip.745482.xyz | false | active | [Souradip](https://www.instagram.com/fhx_hacrr/) | Portfolio site for Souradip Ghosh | Curious by nature. Website for Souradip Ghosh, a 20-year-old curious mind. |
 | Abhradeep | abhrdeep.745482.xyz | false | active | [Abhradeep](https://www.instagram.com/abhradeep.biswas/) | Portfolio site for Abhradeep Biswas | Capturing the silent poetry of ordinary days. |
 | MAKAUT PPS | makautpps.745482.xyz | false | active | [Ratnadwip](https://ratnadwip.com) | Makaut PPS Programms | MAKAUT Semester 2: Programming for Problem Solving (PPS) - OneShot Revision Hub |
 | Infinite Canvas | infinitecanvas.745482.xyz | false | coming soon | [Ratnadwip](https://ratnadwip.com) | Infinite Canvas | A 3D infinite canvas project allowing users to create and share their own infinite canvas. |
