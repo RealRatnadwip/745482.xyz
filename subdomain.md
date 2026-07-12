@@ -36,12 +36,15 @@ To register or modify a subdomain, append or edit a row in the table below match
 
 | Name | Subdomain | Sponsored | Status | Creator Contact | Home Description | Site Description |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| DepoShield | deposhield.745482.xyz | true | coming soon | [Ranit](https://www.linkedin.com/in/ranit-pal/) | Trustless Security Deposit Escrow | A decentralized, trustless smart contract escrow for security deposits, ensuring fair dispute resolution. |
+| DepoShield | deposhield.745482.xyz | true | active | [Ranit](https://www.linkedin.com/in/ranit-pal/) | Trustless Security Deposit Escrow | A decentralized, trustless smart contract escrow for security deposits, ensuring fair dispute resolution. |
 | Traffic | traffic.745482.xyz | true | active | [Traffic](https://www.instagram.com/traffic.theband/) | Traffic: The Band Page | The official portal of Traffic: The Band, a Bengal-based rock, blues, alternative, funk, indie project. |
 | Flower Bouquet | bouquet.745482.xyz | false | active | [Ratnadwip](https://ratnadwip.com) | Flower Bouquet | An interactive web canvas allowing users to arrange and send virtual flower bouquets with personalized notes. |
 | SpotifyOnBudget | spotifyonbudget.745482.xyz | false | active | [Ratnadwip](https://ratnadwip.com) | SpotifyOnBudget | A web-app that plays music from Google Drive like a Spotify player. |
 | Omnichord | omnichord.745482.xyz | false | active | [Ratnadwip](https://ratnadwip.com) | Omnichord | A digital synthesizer recreation of the retro Suzuki Omnichord instrument, featuring auto-harp strum triggers. |
 | BSRC | bsrc.745482.xyz | false | active | [Ratnadwip](https://ratnadwip.com) | BackShot Roulette Calculator | A web-app that calculate bullet probability for the game BackShot Roulette. |
+| Souradip | souradip.745482.xyz | false | active | [Souradip](https://www.instagram.com/fhx_hacrr/) | Portfolio site for Souradip Ghosh | Curious by nature. Website for Souradip Ghosh, a 20-year-old curious mind. |
+| Abhradeep | abhrdeep.745482.xyz | false | active | [Abhradeep](https://www.instagram.com/abhradeep.biswas/) | Portfolio site for Abhradeep Biswas | Capturing the silent poetry of ordinary days. |
+| MAKAUT PPS | makautpps.745482.xyz | false | active | [Ratnadwip](https://ratnadwip.com) | Makaut PPS Programms | MAKAUT Semester 2: Programming for Problem Solving (PPS) - OneShot Revision Hub |
 | Infinite Canvas | infinitecanvas.745482.xyz | false | coming soon | [Ratnadwip](https://ratnadwip.com) | Infinite Canvas | A 3D infinite canvas project allowing users to create and share their own infinite canvas. |
 | Constellation | constellation.745482.xyz | false | maintenance | [Ratnadwip](https://ratnadwip.com) | Constellation of My Stars | A 3D interactive stellar map project detailing custom coordinates and star configurations. |
 | Windows | windows.745482.xyz | false | inactive | [Ratnadwip](https://ratnadwip.com) | A view from a window | A web-app that displays a view out a virtual window to a virtual outdoor scene. |
