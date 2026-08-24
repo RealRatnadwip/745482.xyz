@@ -31,18 +31,43 @@ window.fetchAndParseSubdomains = function (markdownPath) {
                         const isSponsored = sponsoredFlag.toLowerCase() === 'true';
                         const status = statusString.toLowerCase().trim() === 'coming soon' ? 'comingsoon' : statusString.toLowerCase().trim();
 
-                        let contactName = contactInfo;
-                        let contactUrl = '#';
-                        const contactLinkMatch = contactInfo.match(/\[([^\]]+)\]\(([^)]+)\)/);
-                        if (contactLinkMatch) {
-                            [, contactName, contactUrl] = contactLinkMatch;
+                        const creators = [];
+                        const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+                        const matches = [...contactInfo.matchAll(linkRegex)];
+
+                        if (matches.length > 0) {
+                            matches.forEach(m => {
+                                creators.push({
+                                    name: m[1].trim(),
+                                    url: m[2].trim()
+                                });
+                            });
+                        } else {
+                            const parts = contactInfo.split(/,|&|\band\b/i);
+                            parts.forEach(part => {
+                                const trimmed = part.trim();
+                                if (trimmed) {
+                                    creators.push({
+                                        name: trimmed,
+                                        url: '#'
+                                    });
+                                }
+                            });
                         }
+
+                        if (creators.length === 0) {
+                            creators.push({ name: contactInfo.trim() || 'Unknown', url: '#' });
+                        }
+
+                        const contactName = creators.map(c => c.name).join(', ');
+                        const contactUrl = creators[0].url;
 
                         records.push({
                             name,
                             host,
                             isSponsored,
                             status,
+                            creators,
                             contactName,
                             contactUrl,
                             desc: homeDesc,
@@ -93,8 +118,16 @@ window.initSponsoredBanners = function (subdomains) {
         setTimeout(() => {
             const isVertical = bannerElement.classList.contains('ad-banner-vertical');
             const details = getStatusDetails(adData.status);
+            const creatorsList = adData.creators && adData.creators.length > 0 
+                ? adData.creators 
+                : [{ name: adData.contactName || 'Unknown', url: adData.contactUrl || '#' }];
+            const isMultipleCreators = creatorsList.length > 1;
 
             if (isVertical) {
+                const creatorsTelemetryHtml = creatorsList.map(c => 
+                    `<a href="${c.url}" target="_blank" class="footer-link" style="border-bottom: 1px dotted var(--color-border);">${c.name}</a>`
+                ).join(', ');
+
                 bannerElement.innerHTML = `
                     <span class="ad-tag">sponsored_node</span>
                     <div class="ad-content-wrapper" style="display: flex; flex-direction: column; gap: 0.75rem; flex: 1; text-align: left;">
@@ -106,7 +139,7 @@ window.initSponsoredBanners = function (subdomains) {
                         <div class="ad-telemetry" style="border-top: 1px dashed var(--color-border); padding-top: 0.75rem; font-size: 0.65rem; color: var(--color-text-muted); display: flex; flex-direction: column; gap: 0.35rem; font-family: var(--font-mono); line-height: 1.4;">
                             <div style="text-transform: uppercase; font-weight: 600; color: var(--color-accent); margin-bottom: 0.15rem;">[Node Telemetry]</div>
                             <div>status: <span style="color: ${details.color};">${details.text}</span></div>
-                            <div>creator: <a href="${adData.contactUrl}" target="_blank" class="footer-link" style="border-bottom: 1px dotted var(--color-border);">${adData.contactName}</a></div>
+                            <div>${isMultipleCreators ? 'creators' : 'creator'}: ${creatorsTelemetryHtml}</div>
                             <div>ping_latency: ${adData.status === 'active' ? Math.floor(Math.random() * 45) + 15 + 'ms' : '--'}</div>
                             <div>node_integrity: verified</div>
                             <div style="margin-top: 0.25rem; font-size: 0.55rem; color: var(--color-text-muted); opacity: 0.6;">* Data verified via secure local registry config.</div>
@@ -115,6 +148,10 @@ window.initSponsoredBanners = function (subdomains) {
                     <a href="${adData.status === 'active' ? 'https://' + adData.host : '#'}" ${adData.status === 'active' ? 'target="_blank" rel="noopener"' : `onclick="alert(\'${details.alert}\'); return false;"`} class="ad-button" style="margin-top: 0.75rem;">VISIT_SITE</a>
                 `;
             } else {
+                const creatorsViaHtml = creatorsList.map(c => 
+                    `<a href="${c.url}" target="_blank" class="footer-link">${c.name}</a>`
+                ).join(', ');
+
                 bannerElement.innerHTML = `
                     <span class="ad-tag">sponsored_node</span>
                     <div style="display: flex; flex-direction: column; gap: 0.15rem;">
@@ -124,7 +161,7 @@ window.initSponsoredBanners = function (subdomains) {
                     <p class="ad-desc" style="margin-top: 0.25rem; margin-bottom: 0.75rem; font-size: 0.725rem; line-height: 1.4;">${adData.siteDesc}</p>
                     <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.65rem; font-family: var(--font-mono);">
                         <span style="color: var(--color-text-muted);">
-                            Via: <a href="${adData.contactUrl}" target="_blank" class="footer-link">${adData.contactName}</a>
+                            Via: ${creatorsViaHtml}
                         </span>
                         <a href="${adData.status === 'active' ? 'https://' + adData.host : '#'}" ${adData.status === 'active' ? 'target="_blank" rel="noopener"' : `onclick="alert(\'${details.alert}\'); return false;"`} class="visit-link" style="margin: 0; color: var(--color-accent); font-weight: 600;">VISIT_SITE →</a>
                     </div>

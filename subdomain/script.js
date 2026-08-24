@@ -18,6 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     card.setAttribute('data-status', subdomain.status);
                     card.setAttribute('data-fallback-desc', subdomain.desc);
 
+                    const creatorsList = subdomain.creators && subdomain.creators.length > 0 
+                        ? subdomain.creators 
+                        : [{ name: subdomain.contactName || 'Unknown', url: subdomain.contactUrl || '#' }];
+                    const creatorsHtml = creatorsList.map(c => 
+                        `<a href="${c.url}" target="_blank" class="footer-link" style="border-bottom: 1px dotted var(--color-border);">${c.name}</a>`
+                    ).join(', ');
+
                     card.innerHTML = `
                         <div class="card-header">
                             <div class="url-group">
@@ -29,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <p class="subdomain-desc">${subdomain.desc}</p>
                         <div class="card-footer-author" style="margin-top: 0.5rem; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.7rem; color: var(--color-text-muted); font-family: var(--font-mono);">
-                            <span>by <a href="${subdomain.contactUrl}" target="_blank" class="footer-link" style="border-bottom: 1px dotted var(--color-border);">${subdomain.contactName}</a></span>
+                            <span>by ${creatorsHtml}</span>
                         </div>
                         <div class="card-drawer">
                             <div class="site-detail-desc" style="font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 0.75rem;">
