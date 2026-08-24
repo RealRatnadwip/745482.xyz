@@ -22,9 +22,9 @@ To register or modify a subdomain, append or edit a row in the table below match
      - `maintenance`: Node is temporarily offline for maintenance. Renders static placeholder telemetry.
      - `coming soon`: Node is in development. Renders static placeholder telemetry.
      - `inactive`: Node is offline. Renders static placeholder telemetry.
-5. **Creator Contact**: Markdown link to the creator's profile page, website, or social handles.
-   - *Format:* `[Name](URL)`
-   - *Example:* `[Creator](https://link_to_creator_profile)`
+5. **Creator Contact**: Markdown link(s) to the creator's profile page, website, or social handles. Supports multiple creators.
+   - *Format:* `[Name](URL)` or comma-separated `[Name1](URL1), [Name2](URL2)`
+   - *Example:* `[Creator 1](https://link1), [Creator 2](https://link2)`
 6. **Home Description**: Short tag-line description displayed on the homepage registry grid cards.
    - *Limit:* Keep it under 60 characters for optimal rendering.
 7. **Site Description**: Detailed description displayed inside the expanded drawer card on the `/subdomain` page.
@@ -36,16 +36,16 @@ To register or modify a subdomain, append or edit a row in the table below match
 
 | Name | Subdomain | Sponsored | Status | Creator Contact | Home Description | Site Description |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Traffic | traffic.745482.xyz | true | active | [Traffic](https://www.instagram.com/traffic.theband/) | Traffic: The Band Page | The official portal of Traffic: The Band, a Bengal-based rock, blues, alternative, funk, indie project. |
-| Flower Bouquet | bouquet.745482.xyz | true | active | [745482](https://745482.xyz) | Flower Bouquet | An interactive web canvas allowing users to arrange and send virtual flower bouquets with personalized notes. |
-| GirlGangPlusTax | girlgangplustax.745482.xyz | false | active | [745482](https://745482.xyz) | Landing Page for SIH 2026 team | The offical page of GirlGangPlusTax participating in SIH 2026 |
-| SpotifyOnBudget | spotifyonbudget.745482.xyz | false | active | [745482](https://745482.xyz) | SpotifyOnBudget | A web-app that plays music from Google Drive like a Spotify player. |
-| Omnichord | omnichord.745482.xyz | false | active | [745482](https://745482.xyz) | Omnichord | A digital synthesizer recreation of the retro Suzuki Omnichord instrument, featuring auto-harp strum triggers. |
-| BSRC | bsrc.745482.xyz | false | active | [745482](https://745482.xyz) | BackShot Roulette Calculator | A web-app that calculate bullet probability for the game BackShot Roulette. |
-| Souradip | souradip.745482.xyz | false | active | [Souradip](https://www.instagram.com/fhx_hacrr/) | Portfolio site for Souradip Ghosh | Curious by nature. Website for Souradip Ghosh, a 20-year-old curious mind. |
-| Abhradeep | abhradeep.745482.xyz | false | active | [Abhradeep](https://www.instagram.com/abhradeep.biswas/) | Portfolio site for Abhradeep Biswas | Capturing the silent poetry of ordinary days. |
-| MAKAUT PPS | makautpps.745482.xyz | false | active | [745482](https://745482.xyz) | Makaut PPS Programms | MAKAUT Semester 2: Programming for Problem Solving (PPS) - OneShot Revision Hub |
+| Traffic | traffic.745482.xyz | true | active | [Traffic](https://www.instagram.com/traffic.theband/), [Ratnadwip](https://github.com/RealRatnadwip/), [Ranit](https://github.com/Ranitpal77/) | Traffic: The Band Page | The official portal of Traffic: The Band, a Bengal-based rock, blues, alternative, funk, indie project. |
+| Flower Bouquet | bouquet.745482.xyz | true | active | [Ratnadwip](https://github.com/RealRatnadwip/), [Ranit](https://github.com/Ranitpal77/) | Flower Bouquet | An interactive web canvas allowing users to arrange and send virtual flower bouquets with personalized notes. |
+| GirlGangPlusTax | girlgangplustax.745482.xyz | false | active | [Ratnadwip](https://github.com/RealRatnadwip/), [Sayantica](https://www.instagram.com/sayantica_ghosh_04/), [Souradip](https://instagram.com/fhx_hacrr/) | Landing Page for SIH 2026 team | The offical page of GirlGangPlusTax participating in SIH 2026 |
+| SpotifyOnBudget | spotifyonbudget.745482.xyz | false | active | [Ratnadwip](https://github.com/RealRatnadwip/) | SpotifyOnBudget | A web-app that plays music from Google Drive like a Spotify player. |
+| Omnichord | omnichord.745482.xyz | false | active | [Ratnadwip](https://github.com/RealRatnadwip/) | Omnichord | A digital synthesizer recreation of the retro Suzuki Omnichord instrument, featuring auto-harp strum triggers. |
+| BSRC | bsrc.745482.xyz | false | active | [Ratnadwip](https://github.com/RealRatnadwip/) | BackShot Roulette Calculator | A web-app that calculate bullet probability for the game BackShot Roulette. |
+| Souradip | souradip.745482.xyz | false | active | [Souradip](https://www.instagram.com/fhx_hacrr/), [Ratnadwip](https://github.com/RealRatnadwip/) | Portfolio site for Souradip Ghosh | Curious by nature. Website for Souradip Ghosh, a 20-year-old curious mind. |
+| Abhradeep | abhradeep.745482.xyz | false | active | [Abhradeep](https://www.instagram.com/abhradeep.biswas/), [Ratnadwip](https://github.com/RealRatnadwip/) | Portfolio site for Abhradeep Biswas | Capturing the silent poetry of ordinary days. |
+| MAKAUT PPS | makautpps.745482.xyz | false | active | [Ratnadwip](https://github.com/RealRatnadwip/) | Makaut PPS Programms | MAKAUT Semester 2: Programming for Problem Solving (PPS) - OneShot Revision Hub |
 | Nayanexe | nayanexe.745482.xyz | flase | maintenance | [Nayanabha](https://www.instagram.com/_nayanexe_/) | Portfolio site for Nayanabha Dhar | Pharmacist by profession, photographer by passion |
-| Constellation | constellation.745482.xyz | false | maintenance | [745482](https://745482.xyz) | Constellation of My Stars | A 3D interactive stellar map project detailing custom coordinates and star configurations. |
-| Infinite Canvas | infinitecanvas.745482.xyz | false | coming soon | [745482](https://745482.xyz) | Infinite Canvas | A 3D infinite canvas project allowing users to create and share their own infinite canvas. |
-| Windows | windows.745482.xyz | false | inactive | [745482](https://745482.xyz) | A view from a window | A web-app that displays a view out a virtual window to a virtual outdoor scene. |
+| Constellation | constellation.745482.xyz | false | maintenance | [Ratnadwip](https://github.com/RealRatnadwip/) | Constellation of My Stars | A 3D interactive stellar map project detailing custom coordinates and star configurations. |
+| Infinite Canvas | infinitecanvas.745482.xyz | false | coming soon | [Ratnadwip](https://github.com/RealRatnadwip/) | Infinite Canvas | A 3D infinite canvas project allowing users to create and share their own infinite canvas. |
+| Windows | windows.745482.xyz | false | inactive | [Ratnadwip](https://github.com/RealRatnadwip/) | A view from a window | A web-app that displays a view out a virtual window to a virtual outdoor scene. |

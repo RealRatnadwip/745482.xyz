@@ -56,15 +56,16 @@ body {
 
 /* Initial Text */
 .initial-msg {
-    font-size: clamp(1.2rem, 4vw, 2.2rem);
+    font-size: clamp(1rem, 4.5vw, 2.2rem);
     opacity: 0.9;
     letter-spacing: 0.05em;
     transition: opacity 0.5s ease-in-out;
     line-height: 1.5;
-    width: 80vw;
+    width: 90vw;
     max-width: 800px;
     text-align: center;
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: break-word;
 }
 
 /* Combination Display */
@@ -79,7 +80,7 @@ body {
 }
 
 .combo-word {
-    font-size: clamp(3.2rem, 12vw, 8rem);
+    font-size: clamp(2rem, 10vw, 8rem);
     font-weight: 700;
     letter-spacing: 0.25em;
     margin-right: -0.25em;
