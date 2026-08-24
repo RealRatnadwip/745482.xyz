@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'traceroute to 745482.xyz (185.199.108.153), 30 hops max',
                 ' 1  client.local (192.168.1.1)  0.72 ms',
                 ' 2  gateway.isp.net (10.0.0.1)  2.15 ms',
-                ' 3  745482.ratnadwip.com (172.16.42.1)  7.45 ms',
+                ' 3  gateway.745482.xyz (172.16.42.1)  7.45 ms',
                 ' 4  745482.xyz (185.199.108.153)  11.89 ms',
                 ' ',
                 'STATUS: Connection secure. Route active via TLS 1.3.',
